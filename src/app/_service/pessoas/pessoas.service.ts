@@ -32,10 +32,17 @@ export class PessoasService {
         const httpOptions = {
             headers: new HttpHeaders({
                 "Content-Type": "application/json",
+                // Authorization: 'my-auth-token'
             }),
         };
-        return this.httpClient.post(`${environment.URLS.API_PESSOAS}/Pessoa/UpdatePessoa`, model, httpOptions).pipe(catchError(this.handleError.bind(this)));
+        console.log('model', model)
+        return this.httpClient.post(`${environment.URLS.API_PESSOAS}/Pessoa/CadastrarPessoa`, model, httpOptions).pipe(catchError(this.handleError.bind(this)));
     }
+// "email":"teste@gmail.com"
+// "idade":"54"
+// "nome":"teste"
+// "number":0
+// "phone":"12321312312"
 
     atualizarPessoa(model: any): Observable<any> {
         if (model == null) {

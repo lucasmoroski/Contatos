@@ -4,23 +4,6 @@ $primary: #40bfc1;
 $success: #64e291;
 $warning: #f6d365;
 
-body{
-	font-family: $font-primary;
-	font-size: 16px;
-	line-height: 1.8;
-	font-weight: normal;
-	background: #f8f9fd;
-	color: lighten(black,50%);
-}
-a {
-	transition: .3s all ease;
-	color: $primary;
-	&:hover, &:focus {
-		text-decoration: none !important;
-		outline: none !important;
-		box-shadow: none;
-	}
-}
 h1, h2, h3, h4, h5,
 .h1, .h2, .h3, .h4, .h5 {
 	line-height: 1.5;
@@ -71,7 +54,7 @@ h1, h2, h3, h4, h5,
 	thead{
 		th{
 			border: none;
-			padding: 30px;
+			padding: 10px;
 			font-size: 13px;
 			font-weight: 500;
 			color: lighten(black,50%);
@@ -92,7 +75,7 @@ h1, h2, h3, h4, h5,
 		}
 		th,td{
 			border: none;
-			padding:30px;
+			padding:10px;
 			font-size: 14px;
 			background: white;
 			vertical-align: middle;

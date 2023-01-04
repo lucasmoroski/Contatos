@@ -7,9 +7,14 @@ import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class ContatosService {
+
+    pessoaId: any = '';
+    modelPessoa: any = ''; 
+
     constructor(
         private httpClient: HttpClient,
     ) { }
+
 
     listarContatos(model: any): Observable<any> {
         if (model == null) {

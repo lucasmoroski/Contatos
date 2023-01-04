@@ -1,12 +1,70 @@
 <div class="row">
-    <div class="col-md-12  col-12">
-        <h2><b>Lista de Contatos</b></h2>
+    <div class="col-md-6 col-12" style="padding: 20px;">
+        <span style="font-size: 22px;">
+            <b>{{this.pessoaModel['name']}}, {{this.pessoaModel['idade']}}</b>
+        </span>
+        <br />
+        <span style="color:#d2d2d2">
+            {{this.pessoaModel['email']}}
+        </span>
     </div>
-    <div class="col-md-2 "></div>
-    <div class="col-md-8  col-12">
-        <ng-container *ngFor="let item of listaPessoas">
-            {{item.name}}
-        </ng-container>
+    <div class="col-md-6 col-12" style="padding: 20px;">
+        <span style="float: right; cursor: pointer; color: green;" (click)="EditarContato()">
+            <mat-icon>edit</mat-icon>
+        </span>
+        <span>
+
+        </span>
     </div>
-    <div class="col-md-2 "></div>
+    <div class="col-md-12 col-12" *ngIf="listaContatos">
+        <div class="table-wrap">
+            <table class="table table-responsive-xl table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th style="width: 10px; text-align: center;">ID</th>
+                        <th style="width: 150px;">Nome</th>
+                        <th style="text-align: center; width: 25%;">Telefone</th>
+                        <th style="text-align: center; width: 15%;">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngIf="listaContatos.length > 0; else elseTemplate">
+                        <ng-container *ngFor="let item of listaContatos">
+                            <tr class="alert" role="alert" style="cursor: pointer;">
+                                <td style="text-align: center;">
+                                    <label class="checkbox-wrap checkbox-primary">
+                                        {{item.pessoaId}}
+                                    </label>
+                                </td>
+                                <td class="">
+                                    <span>{{item.name}}</span>
+                                </td>
+                                <td class="status" style="text-align: center;">
+                                    <span>{{item.phone | mask: '(00) 0 0000-0000'}}</span>
+                                </td>
+                                <td style="text-align: center;">
+                                    <button (click)="detalhesContato(item)" class="btn btn-primary">
+                                        <span aria-hidden="true">Ver</span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </ng-container>
+                    <ng-template #elseTemplate>
+                        <div style="padding: 20px;">
+                            <span>
+                                Não possui contatos.
+                            </span>
+                        </div>
+                    </ng-template>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-12 col-12">
+        <button (click)="CriarContato()" class="btn btn-info" style="float: right;">
+            <span aria-hidden="true" style="color: white;">Cadastrar Contato</span>
+        </button>
+    </div>
 </div>

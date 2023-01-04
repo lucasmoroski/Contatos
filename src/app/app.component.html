@@ -1,24 +1,11 @@
-<nav class="navbar navbar-light bg-light">
-  <a class="navbar-brand" href="#">
-    Bootstrap
+<nav class="navbar navbar-light bg-light" style="padding-left: 10px;">
+  <a class="navbar-brand" href="/pessoas" >
+    Projeto
   </a>
 </nav>
 <ul class="nav nav-tabs">
   <li class="nav-item">
     <a class="nav-link" routerLink="/pessoas" routerLinkActive="active" ariaCurrentWhenActive="page">Pessoas</a>
   </li>
-  <li class="nav-item">
-    <a class="nav-link" routerLink="/contatos" routerLinkActive="active" ariaCurrentWhenActive="page">Contatos</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Link</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link disabled" href="#">Disabled</a>
-  </li>
 </ul>
-<div class="row">
-  <div class="col-md-12">
-    <router-outlet></router-outlet>
-  </div>
-</div>
+<router-outlet></router-outlet>

@@ -4,13 +4,12 @@
             <h2><b>Lista de Pessoas</b></h2>
         </span>
     </div>
-    <div class="col-md-1"></div>
-    <div class="col-md-10 col-12" *ngIf="listaPessoas">
+    <div class="col-md-12 col-12" *ngIf="listaPessoas">
         <div class="table-wrap">
             <table class="table table-responsive-xl table-hover table-striped">
                 <thead>
                     <tr>
-                        <th style="width: 10px;">ID</th>
+                        <th style="width: 10px; text-align: center;">ID</th>
                         <th style="width: 150px;">Nome</th>
                         <th style="text-align: center; width: 10px;">Idade</th>
                         <th style="width: 150px;">E-mail</th>
@@ -20,20 +19,20 @@
                 </thead>
                 <tbody>
                 <ng-container *ngFor="let item of listaPessoas">
-                    <tr class="alert" role="alert" style="cursor: pointer;" (click)="ListaContatos(item)">
-                        <td>
+                    <tr class="alert" role="alert" style="cursor: pointer;" >
+                        <td style="text-align: center;" >
                             <label class="checkbox-wrap checkbox-primary">
                                 {{item.pessoaId}}
                             </label>
                         </td>
-                        <td class="">
+                        <td class="" (click)="ListaContatos(item)">
                             <div class="email">
                                 <span>{{item.name}}</span>
                             </div>
                         </td>
                         <td style="text-align: center;">{{item.idade}}</td>
                         <td>{{item.email}}</td>
-                        <td class="status align-items-center">
+                        <td class="status" style="text-align: center;">
                             <span>{{item.phone | mask: '(00) 0 0000-0000'}}</span>
                         </td>
                         <td style="text-align: center;">
@@ -47,5 +46,10 @@
                 </tbody>
             </table>
         </div>
+    </div>
+    <div class="col-md-12 col-12">
+        <button (click)="CadastrarPessoa()" class="btn btn-info" style="float: right;">
+            <span aria-hidden="true" style="color: white;">Cadastrar Pessoa</span>
+        </button>
     </div>
 </div>
