@@ -2,6 +2,8 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { ContatosService } from 'src/app/_service/contatos/contatos.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -11,6 +13,7 @@ import { Router } from '@angular/router';
 })
 export class DialogCadastroContatoComponent {
   contatoForm: any;
+  pessoaId: any;
 
   get Nome() { return this.contatoForm.get('nome') }
   get Email() { return this.contatoForm.get('email') }
@@ -22,6 +25,7 @@ export class DialogCadastroContatoComponent {
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<DialogCadastroContatoComponent>,
     public dialog: MatDialog,
+    public _serviceContato: ContatosService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.contatoForm = this.fb.group({
@@ -30,19 +34,38 @@ export class DialogCadastroContatoComponent {
       idade: ["", Validators.required],
       celular: ["", Validators.required]
     });
-
+    this.pessoaId = data;
   }
 
 
   Salvar() {
     let modelSalvar = {
+      pessoaId: this.pessoaId,
       nome: this.Nome.value,
       email: this.Email.value,
       idade: this.Idade.value,
-      celular: this.Celular.value
+      telefone: this.Celular.value
     }
 
-    console.log('modelSalvar', modelSalvar)
+    if(!this.contatoForm.valid){
+      Swal.fire(
+        'Atenção!',
+        'Verifique se os parâmetros foram preenchidos corretamente',
+        'error'
+      )
+      return;
+    }
+    this._serviceContato.cadastrarContatos(modelSalvar).subscribe((data) =>{
+
+      if(data['status']){
+          Swal.fire(
+              '',
+              'Contato Cadastrada com Sucesso!',
+              'success'
+            )
+            this.dialog.closeAll();
+          }
+        })
 
   }
 

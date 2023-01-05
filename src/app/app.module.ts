@@ -22,6 +22,7 @@ import { MatRippleModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { DialogDetalhesPessoaComponent } from './_dialog/pessoas/detalhes/detalhe-pessoa.dialog';
 import { DialogCadastroPessoaComponent } from './_dialog/pessoas/cadastro/cadastro-pessoa.dialog';
 import { DialogCadastroContatoComponent } from './_dialog/contatos/cadastro/cadastro-contatos.dialog';
+import { SuporteComponent } from './suporte/suporte.component';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -32,6 +33,7 @@ const maskConfig: Partial<IConfig> = {
     AppComponent,
     PessoaComponent,
     ContatosComponent,
+    SuporteComponent,
     DialogDetalhesContatoComponent,
     DialogDetalhesPessoaComponent,
     DialogCadastroPessoaComponent,

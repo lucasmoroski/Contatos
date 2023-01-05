@@ -16,16 +16,17 @@ export class ContatosComponent {
   title = 'Contatos';
   listaContatos: any;
   pessoaModel: any;
+  pessoaId: any;
   constructor(
     private _servicePessoas: PessoasService,
     private _serviceContatos: ContatosService,
     public dialog: MatDialog,
     private rout: Router
   ){
-    console.log('this._serviceContatos.pessoaId',this._serviceContatos.pessoaId)
     this.pessoaModel = this._serviceContatos.modelPessoa;
-    if (this._serviceContatos.pessoaId){
-      this.listaContatos()
+    this.pessoaId = this._serviceContatos.pessoaId;
+    if (this.pessoaId){
+      this.listarContatos();
     } else {
       this.rout.navigate(['/pessoas'])
     }
@@ -33,10 +34,9 @@ export class ContatosComponent {
 
   listarContatos(){
     let model = {
-      pessoaId: this._serviceContatos.pessoaId
+      pessoaId: this.pessoaId
     }
     this._serviceContatos.listarContatos(model).subscribe(data =>{
-      console.log(data)
       this.listaContatos = data;
     })
   }
@@ -45,8 +45,11 @@ export class ContatosComponent {
     const dialogRef = this.dialog.open(DialogDetalhesContatoComponent, {
       width: "100%",
       height: "auto",
-      data: contato
+      data: {dataContato:contato,dataPessoa: this.pessoaModel}
 
+    }).afterClosed()
+    .subscribe((response) => {
+      this.listarContatos();
     });
   }
 
@@ -56,14 +59,17 @@ export class ContatosComponent {
       height: "auto",
       data: this.pessoaModel
 
+    }).afterClosed()
+    .subscribe((response) => {
+      this.listarContatos();
     });
   }
 
-  CriarContato(){
+  CriarContato(pessoaId: any){
     const dialogRef = this.dialog.open(DialogCadastroContatoComponent, {
       width: "100%",
       height: "auto",
-      data: this.pessoaModel
+      data: pessoaId
 
     }).afterClosed()
     .subscribe((response) => {

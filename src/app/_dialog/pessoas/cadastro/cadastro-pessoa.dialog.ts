@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { PessoasService } from 'src/app/_service/pessoas/pessoas.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -45,9 +46,24 @@ export class DialogCadastroPessoaComponent {
       number: 0
     }
 
-    console.log('modelSalvar', modelSalvar)
+    if(!this.pessoaForm.valid){
+      Swal.fire(
+        'Atenção!',
+        'Verifique se os parâmetros foram preenchidos corretamente',
+        'error'
+      )
+      return;
+    }
+
     this._servicePessoa.cadastrarPessoa(modelSalvar).subscribe(data =>{
-      console.log('data',data)
+      if(data['status']){
+        Swal.fire(
+          '',
+          'Pessoa Cadastrada com Sucesso!',
+          'success'
+        )
+        this.dialog.closeAll();
+      }
     })
 
   }

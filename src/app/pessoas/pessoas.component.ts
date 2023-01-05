@@ -32,11 +32,9 @@ export class PessoaComponent {
   }
 
   ListaContatos(item: any) {
-    console.log('item', item)
     this._serviceContatos.modelPessoa = item;
     this._serviceContatos.pessoaId = item['pessoaId'];
     if (this._serviceContatos.pessoaId > 0) {
-      console.log('this._serviceContatos.pessoaId', this._serviceContatos.pessoaId)
       this.rout.navigate(['/contatos']);
     }
   }

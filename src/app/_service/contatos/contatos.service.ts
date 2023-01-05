@@ -39,7 +39,7 @@ export class ContatosService {
                 "Content-Type": "application/json",
             }),
         };
-        return this.httpClient.post(`${environment.URLS.API_PESSOAS}/Contato/UpdateContato`, model, httpOptions).pipe(catchError(this.handleError.bind(this)));
+        return this.httpClient.post(`${environment.URLS.API_PESSOAS}/Contato/CadastrarContato`, model, httpOptions).pipe(catchError(this.handleError.bind(this)));
     }
 
     atualizarContatos(model: any): Observable<any> {
@@ -51,7 +51,21 @@ export class ContatosService {
                 "Content-Type": "application/json",
             }),
         };
-        return this.httpClient.put(`${environment.URLS.API_PESSOAS}/Contato/UpdateContato`, model, httpOptions).pipe(catchError(this.handleError.bind(this)));
+        return this.httpClient.put(`${environment.URLS.API_PESSOAS}/Contato/AtualiazarContato`, model, httpOptions).pipe(catchError(this.handleError.bind(this)));
+    }
+
+    deletarContatos(model: any): Observable<any> {
+        if (model == null) {
+            model = {};
+        }
+        const httpOptions = {
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                // 'Authorization': `Bearer ${}`
+            }),
+            params: new HttpParams({ fromObject: model })
+        };
+        return this.httpClient.delete(`${environment.URLS.API_PESSOAS}/Contato/DeletarContato`, httpOptions).pipe(catchError(this.handleError.bind(this)));
     }
 
     private handleError(errorResponse: HttpErrorResponse) {

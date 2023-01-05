@@ -18,6 +18,7 @@ export class PessoasService {
         const httpOptions = {
             headers: new HttpHeaders({
                 "Content-Type": "application/json",
+                "Access-Control-Allow-Origin" : "*"
                 // 'Authorization': `Bearer ${}`
             }),
             params: new HttpParams({ fromObject: model })
@@ -32,17 +33,13 @@ export class PessoasService {
         const httpOptions = {
             headers: new HttpHeaders({
                 "Content-Type": "application/json",
+                "Access-Control-Allow-Origin" : "*"
                 // Authorization: 'my-auth-token'
             }),
         };
-        console.log('model', model)
         return this.httpClient.post(`${environment.URLS.API_PESSOAS}/Pessoa/CadastrarPessoa`, model, httpOptions).pipe(catchError(this.handleError.bind(this)));
     }
-// "email":"teste@gmail.com"
-// "idade":"54"
-// "nome":"teste"
-// "number":0
-// "phone":"12321312312"
+
 
     atualizarPessoa(model: any): Observable<any> {
         if (model == null) {
@@ -51,9 +48,24 @@ export class PessoasService {
         const httpOptions = {
             headers: new HttpHeaders({
                 "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
             }),
         };
-        return this.httpClient.put(`${environment.URLS.API_PESSOAS}/Pessoa/UpdatePessoa`, model, httpOptions).pipe(catchError(this.handleError.bind(this)));
+        return this.httpClient.put(`${environment.URLS.API_PESSOAS}/Pessoa/AtualiazarPessoa`, model, httpOptions).pipe(catchError(this.handleError.bind(this)));
+    }
+
+    deletarPessoa(model: any): Observable<any> {
+        if (model == null) {
+            model = {};
+        }
+        const httpOptions = {
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }),
+            params: new HttpParams({ fromObject: model })
+        };
+        return this.httpClient.delete(`${environment.URLS.API_PESSOAS}/Pessoa/DeletarPessoa`, httpOptions).pipe(catchError(this.handleError.bind(this)));
     }
 
     private handleError(errorResponse: HttpErrorResponse) {

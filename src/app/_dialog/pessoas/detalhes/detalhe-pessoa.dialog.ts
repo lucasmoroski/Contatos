@@ -2,6 +2,8 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { PessoasService } from 'src/app/_service/pessoas/pessoas.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -23,6 +25,7 @@ export class DialogDetalhesPessoaComponent {
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<DialogDetalhesPessoaComponent>,
     public dialog: MatDialog,
+    public _servicePessoa: PessoasService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.Pessoa = data;
@@ -37,16 +40,9 @@ export class DialogDetalhesPessoaComponent {
         nome: this.Pessoa['name'] || '',
         email: this.Pessoa['email'] || '',
         idade: this.Pessoa['idade'] || '',
-        celular: this.Pessoa['phone'] || ''
+        celular: this.Pessoa['telefone'] || ''
       });
     }
-  }
-
-  ExcluirPessoa() {
-    let modelExcluir = {
-      pessoaId: this.Pessoa['pessoaId']
-    }
-    console.log('modelExcluir', modelExcluir)
   }
 
   SalvarAtualizacao() {
@@ -55,10 +51,48 @@ export class DialogDetalhesPessoaComponent {
       nome: this.Nome.value,
       email: this.Email.value,
       idade: this.Idade.value,
-      celular: this.Celular.value
+      telefone: this.Celular.value
     }
 
-    console.log('modelSalvar', modelSalvar)
+    if(!this.pessoaForm.valid){
+      Swal.fire(
+        'Atenção!',
+        'Verifique se os parâmetros foram preenchidos corretamente',
+        'error'
+      )
+      return;
+    }
+
+    this._servicePessoa.atualizarPessoa(modelSalvar).subscribe((data) =>{
+      if(data['status']){
+        Swal.fire(
+          '',
+          'Pessoa Atualizada com Sucesso!',
+          'success'
+        )
+        this.rout.navigate(['/pessoas']);
+        this.dialog.closeAll();
+      }
+    })
+
+  }
+
+  ExcluirPessoa() {
+    let modelExcluir = {
+      pessoaId: this.Pessoa['pessoaId']
+    }
+
+    this._servicePessoa.deletarPessoa(modelExcluir).subscribe((data) =>{
+      if(data['status']){
+        Swal.fire(
+          '',
+          'Pessoa Deletada com Sucesso!',
+          'success'
+        )
+        this.rout.navigate(['/pessoas']);
+        this.dialog.closeAll();
+      }
+    })
 
   }
 

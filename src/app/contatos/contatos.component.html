@@ -40,7 +40,7 @@
                                     <span>{{item.name}}</span>
                                 </td>
                                 <td class="status" style="text-align: center;">
-                                    <span>{{item.phone | mask: '(00) 0 0000-0000'}}</span>
+                                    <span>{{item.telefone | mask: '(00) 0 0000-0000'}}</span>
                                 </td>
                                 <td style="text-align: center;">
                                     <button (click)="detalhesContato(item)" class="btn btn-primary">
@@ -63,8 +63,11 @@
         </div>
     </div>
     <div class="col-md-12 col-12">
-        <button (click)="CriarContato()" class="btn btn-info" style="float: right;">
+        <button (click)="CriarContato(this.pessoaModel['pessoaId'])" class="btn btn-info" style="float: right;">
             <span aria-hidden="true" style="color: white;">Cadastrar Contato</span>
         </button>
+        <a routerLink="/pessoas" routerLinkActive="active" ariaCurrentWhenActive="page" class="btn btn-secondary" style="float: left;">
+            <span aria-hidden="true" style="color: white;">Voltar</span>
+        </a>
     </div>
 </div>
